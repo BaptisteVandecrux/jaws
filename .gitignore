@@ -13,3 +13,9 @@ climatological_seasonal_cycle.ipynb
 .idea/
 
 docs/build/
+
+bav/metadata
+*-checkpoint.md
+hs_adjust.py
+untitled.md
+NUK_K_hour_v03.txt

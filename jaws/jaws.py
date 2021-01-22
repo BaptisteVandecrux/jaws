@@ -64,6 +64,15 @@ def get_parser():
         help="Select MERRA dataset for thermodynamic profiles in RIGB calculations",
         action="store_true")
     ###########################################################################
+	
+    ###########################################################################
+    # hs_correct arguments
+    parser.add_argument(
+        "--hs_adjust",
+        help="Adjusts surface height based on a maintenance file. ",
+        action="store_true")
+
+    ###########################################################################
 
     parser.add_argument(
         "-f", "--fll_val_flt", "--fillvalue_float",
@@ -240,8 +249,15 @@ def dispatch_converter(args, input_file, output_file, stations):
         if stream.readline().startswith("Operated by"):
             pol_scar = True
 
+    NEAD = False  # Check if input file is from POLENET or SCAR network
+    with open(input_file) as stream:
+        if stream.readline().lstrip().startswith("# NEAD"):
+            NEAD = True
+
     if pol_scar:
         scar2nc.scar2nc(args, input_file, output_file)
+    elif NEAD:
+        gcnet2nc.gcnet2nc(args, input_file, output_file, stations)
     else:
         with open(input_file) as stream:
             char = stream.readline()[0]

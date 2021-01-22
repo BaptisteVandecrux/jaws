@@ -59,6 +59,20 @@ def load_dataframe(name, input_file, header_rows, **kwargs):
 
     global columns
 
+    if name == 'gcnet2':
+		# finding header length
+        with open(input_file, 'r') as f:
+            for i, line in enumerate(f.read().splitlines()):
+                if line.lstrip()[0] == '#'  :
+                    if line.lstrip()[1:].lstrip()[:5] == 'fields':
+                        columns = line.lstrip()[1:].lstrip()[6:]
+                        continue
+                else:
+                    break
+		
+        header_rows = i-1
+		 
+		
     if (name == 'gcnet' and header_rows == 54) or (name == 'promice' and len(input_file_vars) == 46) or (
         name == 'aaws' and len(input_file_vars) == 6) or (name == 'imau/ant') or (name == 'imau/grl') or (
         name == 'scar') or (name == 'nsidc'):

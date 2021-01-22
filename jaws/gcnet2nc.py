@@ -35,8 +35,14 @@ def init_dataframe(args, input_file):
             header_rows += 1
             if len(line.strip()) == 0 :
                 break
-
-    df, columns = common.load_dataframe('gcnet', input_file, header_rows)
+    NEAD = False  # Check if input file is from POLENET or SCAR network
+    with open(input_file) as stream:
+        if stream.readline().lstrip().startswith("# NEAD"):
+            NEAD = True
+    if NEAD:
+        df, columns = common.load_dataframe('gcnet2', input_file, header_rows)
+    else:
+        df, columns = common.load_dataframe('gcnet', input_file, header_rows)
 
     # Convert only if this column is present in input file
     try:

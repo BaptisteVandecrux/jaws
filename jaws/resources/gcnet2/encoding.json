@@ -1,0 +1,524 @@
+{
+  "station_number": {
+    "dtype": "i2",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "year": {
+    "dtype": "i2",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "julian_decimal_time": {
+    "_FillValue": false,
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "fsds": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "fsus": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "fsns": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "ta_tc1": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "ta_tc2": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "ta_cs1": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "ta_cs2": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "rh1": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "rh2": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "wspd1": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "wspd2": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "wdir1": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "wdir2": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "ps": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "snh1": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "snh2": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "tsn1": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "tsn2": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "tsn3": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "tsn4": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "tsn5": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "tsn6": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "tsn7": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "tsn8": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "tsn9": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "tsn10": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "battery_voltage": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "fsds_max": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "fsus_max": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "fsns_max": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "ta_max1": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "ta_max2": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "ta_min1": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "ta_min2": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "wspd_max1": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "wspd_max2": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "wspd_stdev1": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "wspd_stdev2": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "ref_temp": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "wspd_2m": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "wspd_10m": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "wind_sensor_height_1": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "wind_sensor_height_2": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "alb": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "zenith_angle": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "qc1": {
+    "dtype": "i4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "qc9": {
+    "dtype": "i4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "qc17": {
+    "dtype": "i4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "qc25": {
+    "dtype": "i4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "qc_swdn": {
+    "dtype": "i1",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "qc_swup": {
+    "dtype": "i1",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "qc_netradiation": {
+    "dtype": "i1",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "qc_ttc1": {
+    "dtype": "i1",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "qc_ttc2": {
+    "dtype": "i1",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "qc_tcs1": {
+    "dtype": "i1",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "qc_tcs2": {
+    "dtype": "i1",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "qc_rh1": {
+    "dtype": "i1",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "qc_rh2": {
+    "dtype": "i1",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "qc_u1": {
+    "dtype": "i1",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "qc_u2": {
+    "dtype": "i1",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "qc_ud1": {
+    "dtype": "i1",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "qc_ud2": {
+    "dtype": "i1",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "qc_pressure": {
+    "dtype": "i1",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "qc_snowheight1": {
+    "dtype": "i1",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "qc_snowheight2": {
+    "dtype": "i1",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "qc_tsnow1": {
+    "dtype": "i1",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "qc_tsnow2": {
+    "dtype": "i1",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "qc_tsnow3": {
+    "dtype": "i1",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "qc_tsnow4": {
+    "dtype": "i1",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "qc_tsnow5": {
+    "dtype": "i1",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "qc_tsnow6": {
+    "dtype": "i1",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "qc_tsnow7": {
+    "dtype": "i1",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "qc_tsnow8": {
+    "dtype": "i1",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "qc_tsnow9": {
+    "dtype": "i1",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "qc_tsnow10": {
+    "dtype": "i1",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "qc_battery": {
+    "dtype": "i1",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "time": {
+    "_FillValue": false,
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "time_bounds": {
+    "_FillValue": false,
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "sza": {
+    "_FillValue": false,
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "az": {
+    "_FillValue": false,
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "latitude": {
+    "_FillValue": false,
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "longitude": {
+    "_FillValue": false,
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "station_name": {
+    "dtype": "unicode"
+  },
+  "surface_temp": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "tilt_direction": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "tilt_angle": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "fsds_adjusted": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "fsus_adjusted": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "cloud_fraction": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "sh": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  },
+  "lh": {
+    "_FillValue": "FILL",
+    "dtype": "f4",
+    "zlib": true,
+    "complevel": "COMP"
+  }
+}

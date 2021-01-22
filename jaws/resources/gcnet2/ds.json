@@ -1,0 +1,483 @@
+{
+  "attributes": {
+    "title": "Surface Radiation Data from Greenland Climate Network",
+    "source": "Surface Observations",
+    "featureType": "timeSeries",
+    "institution": "Cooperative Institute for Research in Enviornmental Sciences",
+    "network_name": "GCNet",
+    "reference": "http://cires.colorado.edu/science/groups/steffen/gcnet/",
+    "Conventions": "CF-1.7",
+    "time_convention": "'time: point' variables are valid for exactly the time value stored in the time coordinate, whereas 'time: mean' variables are valid for the mean time within the time_bounds variable. For example, battery_voltage was measured once per hour at the time stored in the 'time' coordinate. On the other hand, temperature_tc_1 was continually measured at high frequency and then averaged over each period contained in the time_bounds variable into the stored hourly-mean values."
+  },
+  "variables": {
+
+    "timestamp": {
+      "type": "float",
+      "attributes": {
+        "long_name": "ISO time stamp",
+        "original_name": "timestamp",
+        "units": "YYYY-MM-DD hh:mm:ss+tz_offset",
+        "note": ""
+      }
+    },	
+    "fsds": {
+      "type": "float",
+      "attributes": {
+        "long_name": "Shortwave Flux Down",
+        "standard_name": "downwelling_shortwave_flux_in_air",
+        "original_name": "ISWR",
+        "units": "watt meter-2",
+        "cell_methods": "time: mean",
+        "coordinates": "longitude latitude"
+      }
+    },
+    "fsus": {
+      "type": "float",
+      "attributes": {
+        "long_name": "Shortwave Flux Up",
+        "standard_name": "upwelling_shortwave_flux_in_air",
+        "original_name": "OSWR",
+        "units": "watt meter-2",
+        "cell_methods": "time: mean",
+        "coordinates": "longitude latitude"
+      }
+    },
+    "fsns": {
+      "type": "float",
+      "attributes": {
+        "long_name": "Net Radiation",
+        "standard_name": "surface_net_downward_radiative_flux",
+        "original_name": "NSWR",
+        "units": "watt meter-2",
+        "cell_methods": "time: mean",
+        "coordinates": "longitude latitude"
+      }
+    },
+    "ta_tc1": {
+      "type": "float",
+      "attributes": {
+        "long_name": "TC-1 Air Temperature",
+        "standard_name": "air_temperature",
+        "original_name": "TA1",
+        "units": "kelvin",
+        "cell_methods": "time: mean",
+        "coordinates": "longitude latitude",
+        "note": "air temperature from TC sensor"
+      }
+    },
+    "ta_tc2": {
+      "type": "float",
+      "attributes": {
+        "long_name": "TC-2 Air Temperature",
+        "standard_name": "air_temperature",
+        "original_name": "TA2",
+        "units": "kelvin",
+        "cell_methods": "time: mean",
+        "coordinates": "longitude latitude",
+        "note": "air temperature from TC sensor"
+      }
+    },
+    "ta_cs1": {
+      "type": "float",
+      "attributes": {
+        "long_name": "CS500-1 Air Temperature",
+        "standard_name": "air_temperature",
+        "original_name": "TA3",
+        "units": "kelvin",
+        "cell_methods": "time: mean",
+        "coordinates": "longitude latitude",
+        "note": "air temperature from CS500 sensor"
+      }
+    },
+    "ta_cs2": {
+      "type": "float",
+      "attributes": {
+        "long_name": "CS500-2 Air Temperature",
+        "standard_name": "air_temperature",
+        "original_name": "TA4",
+        "units": "kelvin",
+        "cell_methods": "time: mean",
+        "coordinates": "longitude latitude",
+        "note": "air temperature from CS500 sensor"
+      }
+    },
+    "rh1": {
+      "type": "float",
+      "attributes": {
+        "long_name": "Relative Humidity 1",
+        "standard_name": "realtive_humidity",
+        "original_name": "RH1",
+        "units": "1",
+        "cell_methods": "time: mean",
+        "coordinates": "longitude latitude"
+      }
+    },
+    "rh2": {
+      "type": "float",
+      "attributes": {
+        "long_name": "Relative Humidity 2",
+        "standard_name": "realtive_humidity",
+        "original_name": "RH2",
+        "units": "1",
+        "cell_methods": "time: mean",
+        "coordinates": "longitude latitude"
+      }
+    },
+    "wspd1": {
+      "type": "float",
+      "attributes": {
+        "long_name": "U1 Wind Speed",
+        "standard_name": "wind_speed",
+        "original_name": "VW1",
+        "units": "meter second-1",
+        "cell_methods": "time: mean",
+        "coordinates": "longitude latitude"
+      }
+    },
+    "wspd2": {
+      "type": "float",
+      "attributes": {
+        "long_name": "U2 Wind Speed",
+        "standard_name": "wind_speed",
+        "original_name": "VW2",
+        "units": "meter second-1",
+        "cell_methods": "time: mean",
+        "coordinates": "longitude latitude"
+      }
+    },
+    "wdir1": {
+      "type": "float",
+      "attributes": {
+        "long_name": "U Direction 1",
+        "standard_name": "wind_from_direction",
+        "original_name": "DW1",
+        "units": "degree",
+        "cell_methods": "time: mean",
+        "coordinates": "longitude latitude"
+      }
+    },
+    "wdir2": {
+      "type": "float",
+      "attributes": {
+        "long_name": "U Direction 2",
+        "standard_name": "wind_from_direction",
+        "original_name": "DW2",
+        "units": "degree",
+        "cell_methods": "time: mean",
+        "coordinates": "longitude latitude"
+      }
+    },
+    "ps": {
+      "type": "float",
+      "attributes": {
+        "long_name": "Atmospheric Pressure",
+        "standard_name": "surface_air_pressure",
+        "original_name": "P",
+        "units": "pascal",
+        "cell_methods": "time: mean",
+        "coordinates": "longitude latitude"
+      }
+    },
+    "snh1": {
+      "type": "float",
+      "attributes": {
+        "long_name": "Snow Height 1",
+        "standard_name": "snow_height",
+        "original_name": "HS1",
+        "units": "meter",
+        "cell_methods": "time: mean",
+        "coordinates": "longitude latitude"
+      }
+    },
+    "snh2": {
+      "type": "float",
+      "attributes": {
+        "long_name": "Snow Height 2",
+        "standard_name": "snow_height",
+        "original_name": "HS2",
+        "units": "meter",
+        "cell_methods": "time: mean",
+        "coordinates": "longitude latitude"
+      }
+    },
+    "battery_voltage": {
+      "type": "float",
+      "attributes": {
+        "long_name": "Battery Voltage",
+        "standard_name": "battery_voltage",
+        "original_name": "V",
+        "units": "volts",
+        "cell_methods": "time: mean",
+        "coordinates": "longitude latitude"
+      }
+    },
+    "fsds_max": {
+      "type": "float",
+      "attributes": {
+        "long_name": "Shortwave Flux Down Max",
+        "standard_name": "maximum_downwelling_shortwave_flux_in_air",
+        "original_name": "ISWR_max",
+        "units": "watt meter-2",
+        "cell_methods": "time: mean",
+        "coordinates": "longitude latitude"
+      }
+    },
+    "fsus_max": {
+      "type": "float",
+      "attributes": {
+        "long_name": "Shortwave Flux Up Max",
+        "standard_name": "maximum_upwelling_shortwave_flux_in_air",
+        "original_name": "OSWR_max",
+        "units": "watt meter-2",
+        "cell_methods": "time: mean",
+        "coordinates": "longitude latitude"
+      }
+    },
+    "fsns_max": {
+      "type": "float",
+      "attributes": {
+        "long_name": "Net Radiation Max",
+        "standard_name": "maximum_net_radiation",
+        "original_name": "NSWR_max",
+        "units": "watt meter-2",
+        "cell_methods": "time: mean",
+        "coordinates": "longitude latitude"
+      }
+    },
+    "ta_max1": {
+      "type": "float",
+      "attributes": {
+        "long_name": "Max Air Temperature 1",
+        "standard_name": "air_temperature",
+        "original_name": "TA1_max",
+        "units": "kelvin",
+        "cell_methods": "time: mean",
+        "coordinates": "longitude latitude"
+      }
+    },
+    "ta_max2": {
+      "type": "float",
+      "attributes": {
+        "long_name": "Max Air Temperature 2",
+        "standard_name": "air_temperature",
+        "original_name": "TA2_max",
+        "units": "kelvin",
+        "cell_methods": "time: mean",
+        "coordinates": "longitude latitude"
+      }
+    },
+    "ta_min1": {
+      "type": "float",
+      "attributes": {
+        "long_name": "Min Air Temperature 1",
+        "standard_name": "air_temperature",
+        "original_name": "TA1_min",
+        "units": "kelvin",
+        "cell_methods": "time: mean",
+        "coordinates": "longitude latitude"
+      }
+    },
+    "ta_min2": {
+      "type": "float",
+      "attributes": {
+        "long_name": "Min Air Temperature 2",
+        "standard_name": "air_temperature",
+        "original_name": "TA2_min",
+        "units": "kelvin",
+        "cell_methods": "time: mean",
+        "coordinates": "longitude latitude"
+      }
+    },
+    "wspd_max1": {
+      "type": "float",
+      "attributes": {
+        "long_name": "Max Windspeed-U1",
+        "standard_name": "wind_speed",
+        "original_name": "VW1_max",
+        "units": "meter second-1",
+        "cell_methods": "time: mean",
+        "coordinates": "longitude latitude"
+      }
+    },
+    "wspd_max2": {
+      "type": "float",
+      "attributes": {
+        "long_name": "Max Windspeed-U2",
+        "standard_name": "wind_speed",
+        "original_name": "VW2_max",
+        "units": "meter second-1",
+        "cell_methods": "time: mean",
+        "coordinates": "longitude latitude"
+      }
+    },
+    "wspd_stdev1": {
+      "type": "float",
+      "attributes": {
+        "long_name": "StdDev Windspeed-U1",
+        "standard_name": "wind_speed",
+        "original_name": "VW1_std",
+        "units": "meter second-1",
+        "cell_methods": "time: mean",
+        "coordinates": "longitude latitude"
+      }
+    },
+    "wspd_stdev2": {
+      "type": "float",
+      "attributes": {
+        "long_name": "StdDev Windspeed-U2",
+        "standard_name": "wind_speed",
+        "original_name": "VW2_std",
+        "units": "meter second-1",
+        "cell_methods": "time: mean",
+        "coordinates": "longitude latitude"
+      }
+    },
+    "ref_temp": {
+      "type": "float",
+      "attributes": {
+        "long_name": "Reference Temperature",
+        "standard_name": "Need to ask network manager about long name",
+        "original_name": "TA5",
+        "units": "kelvin",
+        "cell_methods": "time: mean",
+        "coordinates": "longitude latitude"
+      }
+    },
+    "sza": {
+      "type": "double",
+      "attributes": {
+        "long_name": "Solar Zenith Angle",
+        "standard_name": "solar_zenith_angle",
+        "units": "degree",
+        "cell_methods": "time: mean",
+        "coordinates": "longitude latitude"
+      }
+    },
+    "az": {
+      "type": "double",
+      "attributes": {
+        "long_name": "Solar Azimuth Angle",
+        "standard_name": "solar_azimuth_angle",
+        "units": "degree",
+        "cell_methods": "time: mean",
+        "coordinates": "longitude latitude"
+      }
+    },
+    "station_name": {
+      "type": "string",
+      "attributes": {
+        "long_name": "Station Name",
+        "cf_role": "timeseries_id"
+      }
+    },
+    "latitude": {
+      "type": "double",
+      "attributes": {
+        "long_name": "Latitude",
+        "standard_name": "latitude",
+        "units": "degrees_north"
+      }
+    },
+    "longitude": {
+      "type": "double",
+      "attributes": {
+        "long_name": "Longitude",
+        "standard_name": "longitude",
+        "units": "degrees_east"
+      }
+    },
+    "hour": {
+      "type": "int",
+      "attributes": {
+        "long_name": "Hour of day(UTC)",
+        "units": "1"
+      }
+    },
+    "day": {
+      "type": "int",
+      "attributes": {
+        "long_name": "Day of month",
+        "units": "1"
+      }
+    },
+    "month": {
+      "type": "int",
+      "attributes": {
+        "long_name": "Month of year",
+        "units": "1"
+      }
+    },
+    "surface_temp": {
+      "type": "float",
+      "attributes": {
+        "long_name": "Extrapolated Surface Temperature",
+        "standard_name": "surface_temperature",
+        "units": "kelvin"
+      }
+    },
+    "tilt_direction": {
+      "type": "float",
+      "attributes": {
+        "long_name": "Tilt Direction",
+        "direction": "Zero pointing north",
+        "units": "degree",
+        "cell_methods": "time: mean",
+        "coordinates": "longitude latitude"
+      }
+    },
+    "tilt_angle": {
+      "type": "float",
+      "attributes": {
+        "long_name": "Tilt Angle",
+        "units": "degree",
+        "cell_methods": "time: mean",
+        "coordinates": "longitude latitude"
+      }
+    },
+    "fsds_adjusted": {
+      "type": "float",
+      "attributes": {
+        "long_name": "Adjusted Shortwave Flux Down",
+        "units": "watt meter-2",
+        "cell_methods": "time: mean",
+        "coordinates": "longitude latitude"
+      }
+    },
+    "fsus_adjusted": {
+      "type": "float",
+      "attributes": {
+        "long_name": "Adjusted Shortwave Flux Up",
+        "units": "watt meter-2",
+        "cell_methods": "time: mean",
+        "coordinates": "longitude latitude"
+      }
+    },
+    "cloud_fraction": {
+      "type": "float",
+      "attributes": {
+        "long_name": "Cloud fraction",
+        "units": "1",
+        "cell_methods": "time: mean",
+        "coordinates": "longitude latitude"
+      }
+    },
+    "sh": {
+      "type": "float",
+      "attributes": {
+        "long_name": "Sensible Heat Flux",
+        "units": "watt meter-2",
+        "cell_methods": "time: mean",
+        "coordinates": "longitude latitude"
+      }
+    },
+    "lh": {
+      "type": "float",
+      "attributes": {
+        "long_name": "Latent Heat Flux",
+        "units": "watt meter-2",
+        "cell_methods": "time: mean",
+        "coordinates": "longitude latitude"
+      }
+    }
+  }
+}
