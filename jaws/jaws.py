@@ -64,15 +64,7 @@ def get_parser():
         help="Select MERRA dataset for thermodynamic profiles in RIGB calculations",
         action="store_true")
     ###########################################################################
-	
-    ###########################################################################
-    # hs_correct arguments
-    parser.add_argument(
-        "--hs_adjust",
-        help="Adjusts surface height based on a maintenance file. ",
-        action="store_true")
 
-    ###########################################################################
 
     parser.add_argument(
         "-f", "--fll_val_flt", "--fillvalue_float",
