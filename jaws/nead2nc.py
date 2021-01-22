@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import xarray as xr
 import sys
+import nead
 
 try:
     from metpy.units import units
@@ -26,52 +27,33 @@ except ImportError:
 
 def init_dataframe(args, input_file):
     """Initialize dataframe with data from input file; convert temperature and pressure to SI units"""
-    check_na = 999.0
-
-    global header_rows
-    header_rows = 0
-    with open(input_file) as stream:
-        for line in stream:
-            header_rows += 1
-            if len(line.strip()) == 0 :
-                break
-
-    df, columns = common.load_dataframe('gcnet', input_file, header_rows)
-
-    # Convert only if this column is present in input file
-    try:
-        df['qc25'] = df['qc25'].astype(str)  # To avoid 999 values marked as N/A
-    except Exception:
-        pass
-
-    df.replace(check_na, np.nan, inplace=True)
+    df, columns = common.load_dataframe('nead', input_file, 0)
 
     temperature_vars = [
-        'ta_tc1', 'ta_tc2', 'ta_cs1', 'ta_cs2',
-        'tsn1', 'tsn2', 'tsn3','tsn4', 'tsn5',
-        'tsn6', 'tsn7', 'tsn8', 'tsn9', 'tsn10',
-        'ta_max1', 'ta_max2', 'ta_min1','ta_min2', 'ref_temp']
+        'TA1', 'TA1_max', 'TA1_min',
+       'TA2', 'TA2_max', 'TA2_min',
+       'TA3', 'TA3_max', 'TA3_min',
+       'TA4', 'TA4_max', 'TA4_min',
+       'TA5']
+
+    temperature_vars = [e for e in temperature_vars if e in df.columns.values]
+                                        
     if not args.celsius:
         df.loc[:, temperature_vars] += common.freezing_point_temp  # Convert units to Kelvin
 
-    pressure_vars = ['ps']
+    pressure_vars = ['P']
     if not args.mb:
         df.loc[:, pressure_vars] *= common.pascal_per_millibar  # Convert units to millibar/hPa
 
     df = df.where((pd.notnull(df)), common.get_fillvalue(args))
-
-    try:
-        df['qc25'] = df['qc25'].astype(int)  # Convert it back to int
-    except Exception:
-        pass
 
     return df, temperature_vars, pressure_vars
 
 
 def get_station(args, input_file, stations):
     """Get latitude, longitude and name for each station"""
-    df, columns = common.load_dataframe('gcnet', input_file, header_rows)
-    station_number = df['station_number'][0]
+    ds = nead.read(input_file)
+    station_number = ds.attrs['station_id']
 
     if 1 <= station_number <= 23:
         station = list(stations.values())[station_number]
@@ -79,47 +61,26 @@ def get_station(args, input_file, stations):
         name = 'gcnet_lar{}'.format(station_number - 29)
         station = stations[name]
     else:
-        print('KeyError: {}'.format(df['station_number'][0]))
+        print('KeyError: {}'.format(ds.attrs['station_id']))
         print('HINT: This KeyError can occur when JAWS is asked to process station that is not in its database. '
               'Please inform the JAWS maintainers by opening an issue at https://github.com/jaws/jaws/issues.')
         sys.exit(1)
 
     lat, lon, stn_nm = common.parse_station(args, station)
-
     return lat, lon, stn_nm
 
 
-def fill_dataset_quality_control(dataframe, dataset, input_file):
-    """Create new separate quality control variables for each variable from qc1, qc9, qc17, qc25"""
-    temp_df, columns = common.load_dataframe('gcnet', input_file, header_rows)
-
-    keys = common.read_ordered_json('resources/gcnet/quality_control.json')
-    for key, attributes in keys.items():
-        # Check if qc variables are present in input file
-        if key in columns:
-            values = [list(map(int, i)) for i in zip(*map(str, dataframe[key]))]
-            for attr, value in zip(attributes, values):
-                dataset[attr] = 'time', value
-
-
+                
 def get_time_and_sza(args, dataframe, longitude, latitude):
     """Calculate additional time related variables"""
+
+    hour = dataframe['hour']
+    
     dtime_1970, tz = common.time_common(args.tz)
     num_rows = dataframe['year'].size
     sza, az = ([0] * num_rows for _ in range(2))
 
-    hour_conversion = 100 / 4
-    last_hour = 23
-    hour = dataframe['julian_decimal_time']
-    hour = [round(i - int(i), 3) * hour_conversion for i in hour]
-    hour = [int(h) if int(h) <= last_hour else 0 for h in hour]
-
-    temp_dtime = pd.to_datetime(dataframe['year']*1000 + dataframe['julian_decimal_time'].astype(int), format='%Y%j')
-
-    dataframe['hour'] = hour
-    dataframe['dtime'] = temp_dtime
-
-    dataframe['dtime'] = pd.to_datetime(dataframe.dtime)
+    dataframe['dtime'] = pd.to_datetime(dataframe.timestamp.values)
     dataframe['dtime'] += pd.to_timedelta(dataframe.hour, unit='h')
     # Each timestamp is average of previous and current hour values i.e. value at hour=5 is average of hour=4 and hour=5
     # Our 'time' variable will represent values at half-hour i.e. 4.5 in above case, so subtract 30 minutes from all.
@@ -282,29 +243,29 @@ def gradient_fluxes(df):  # This method is very sensitive to input data quality
     return sh, lh
 
 
-def gcnet2nc(args, input_file, output_file, stations):
-    """Main function to convert GCNet ascii file to netCDF"""
+def nead2nc(args, input_file, output_file, stations):
+    """Main function to convert NEAD ascii file to netCDF"""
     df, temperature_vars, pressure_vars = init_dataframe(args, input_file)
-    station_number = df['station_number'][0]
-    df.drop('station_number', axis=1, inplace=True)
+    ds = nead.read(input_file)
+    station_number = ds.attrs['station_id']
 
+    df['year']=pd.to_datetime(df.timestamp.values).year
+    df['hour']=pd.to_datetime(df.timestamp.values).hour
+    
     ds = xr.Dataset.from_dataframe(df)
-    ds = ds.drop('time')
-
-    # surface_temp = extrapolate_temp(df)
+    
 
     common.log(args, 2, 'Retrieving latitude, longitude and station name')
     latitude, longitude, station_name = get_station(args, input_file, stations)
 
+    print(latitude, longitude, station_name)
+    
     common.log(args, 3, 'Calculating time and sza')
     month, day, hour, minutes, time, time_bounds, sza, az, first_date, last_date = get_time_and_sza(
         args, df, longitude, latitude)
 
-    common.log(args, 4, 'Calculating quality control variables')
-    fill_dataset_quality_control(df, ds, input_file)
-
     if args.flx:
-        common.log(args, 5, 'Calculating Sensible and Latent Heat Fluxes')
+        common.log(args, 4, 'Calculating Sensible and Latent Heat Fluxes')
         sh, lh = gradient_fluxes(df)
         ds['sh'] = 'time', sh
         ds['lh'] = 'time', lh
@@ -334,8 +295,16 @@ def gcnet2nc(args, input_file, output_file, stations):
 
     comp_level = args.dfl_lvl
 
-    common.load_dataset_attributes('gcnet', ds, args, rigb_vars=rigb_vars, temperature_vars=temperature_vars,
+    global columns
+    columns = df.columns.values
+    
+    print(columns)
+    print('columns' in globals())
+    
+    common.load_dataset_attributes('nead', ds, args, rigb_vars=rigb_vars, 
+                                   temperature_vars=temperature_vars,
                                    pressure_vars=pressure_vars)
-    encoding = common.get_encoding('gcnet', common.get_fillvalue(args), comp_level, args)
+    
+    encoding = common.get_encoding('nead', common.get_fillvalue(args), comp_level, args)
 
     common.write_data(args, ds, output_file, encoding)

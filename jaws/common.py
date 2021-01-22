@@ -3,6 +3,8 @@ import sys
 import re
 import json
 import pandas as pd
+import nead
+import numpy as np
 
 import collections
 import pytz
@@ -58,72 +60,72 @@ def load_dataframe(name, input_file, header_rows, **kwargs):
     input_file_vars = [item for sublist in[v for k,v in kwargs.items()] for item in sublist]
 
     global columns
-
-    if name == 'gcnet2':
+    if name == 'nead':
 		# finding header length
-        with open(input_file, 'r') as f:
-            for i, line in enumerate(f.read().splitlines()):
-                if line.lstrip()[0] == '#'  :
-                    if line.lstrip()[1:].lstrip()[:5] == 'fields':
-                        columns = line.lstrip()[1:].lstrip()[6:]
-                        continue
-                else:
-                    break
-		
-        header_rows = i-1
-		 
-		
-    if (name == 'gcnet' and header_rows == 54) or (name == 'promice' and len(input_file_vars) == 46) or (
-        name == 'aaws' and len(input_file_vars) == 6) or (name == 'imau/ant') or (name == 'imau/grl') or (
-        name == 'scar') or (name == 'nsidc'):
-
-        path = relative_path('resources/{}/columns.txt'.format(name))
-        with open(path) as stream:
-            columns = stream.read().split('\n')
-        columns = [i.strip() for i in columns if i.strip()]
-
-    elif name == 'gcnet':
+        ds = nead.read(input_file)
+        df = ds.to_dataframe()
+        columns = df.columns
+        check_na = ds.attrs['nodata']
+        df.replace(check_na, np.nan, inplace=True)	
         path = relative_path('resources/{}/original_columns.json'.format(name))
         org_columns = read_ordered_json(path)
-        columns = []
-
-        with open(input_file) as stream:
-            stream.readline()
-            count = 0
-            for line in stream:
-                isColumnFoundForThisLine = False
-                for column_name, std_name in org_columns.items():
-                    if re.search(r'\b' + column_name + r'\b', line):
-                        isColumnFoundForThisLine = True
-                        columns.append(std_name)
-
-                if not isColumnFoundForThisLine:
-                    if '[W m-2]' in line:
-                        count += 1
-                        if count == 1:
-                            columns.append('sw_down_max')
-                        elif count == 2:
-                            columns.append('sw_up_max')
-
-    elif name == 'promice' or 'aaws':
-        path = relative_path('resources/{}/original_columns.json'.format(name))
-        org_columns = read_ordered_json(path)
-        columns = []
-        if name == 'aaws':
-            columns.append('timestamp')
-
         for column_name,std_name in org_columns.items():
-            if column_name in input_file_vars:
-                columns.append(std_name)
-
-    df = pd.read_csv(
-        input_file,
-        skiprows=header_rows,
-        skip_blank_lines=True,
-        header=None,
-        names=columns,
-        sep=r'\t|\s+|\,',
-        engine='python')
+            if column_name in df.columns.values:
+                df[std_name]=df[column_name]
+        columns = df.columns
+                    
+    else:
+        if (name == 'gcnet' and header_rows == 54) or (name == 'promice' and len(input_file_vars) == 46) or (
+            name == 'aaws' and len(input_file_vars) == 6) or (name == 'imau/ant') or (name == 'imau/grl') or (
+            name == 'scar') or (name == 'nsidc'):
+    
+            path = relative_path('resources/{}/columns.txt'.format(name))
+            with open(path) as stream:
+                columns = stream.read().split('\n')
+            columns = [i.strip() for i in columns if i.strip()]
+    
+        elif name == 'gcnet':
+            path = relative_path('resources/{}/original_columns.json'.format(name))
+            org_columns = read_ordered_json(path)
+            columns = []
+    
+            with open(input_file) as stream:
+                stream.readline()
+                count = 0
+                for line in stream:
+                    isColumnFoundForThisLine = False
+                    for column_name, std_name in org_columns.items():
+                        if re.search(r'\b' + column_name + r'\b', line):
+                            isColumnFoundForThisLine = True
+                            columns.append(std_name)
+    
+                    if not isColumnFoundForThisLine:
+                        if '[W m-2]' in line:
+                            count += 1
+                            if count == 1:
+                                columns.append('sw_down_max')
+                            elif count == 2:
+                                columns.append('sw_up_max')
+    
+        elif name == 'promice' or 'aaws':
+            path = relative_path('resources/{}/original_columns.json'.format(name))
+            org_columns = read_ordered_json(path)
+            columns = []
+            if name == 'aaws':
+                columns.append('timestamp')
+    
+            for column_name,std_name in org_columns.items():
+                if column_name in input_file_vars:
+                    columns.append(std_name)
+    
+        df = pd.read_csv(
+            input_file,
+            skiprows=header_rows,
+            skip_blank_lines=True,
+            header=None,
+            names=columns,
+            sep=r'\t|\s+|\,',
+            engine='python')
 
     df.index.name = 'time'
 
@@ -132,10 +134,9 @@ def load_dataframe(name, input_file, header_rows, **kwargs):
 
 def load_dataset_attributes(name, ds, args, **kwargs):
     """Assign global and variable attributes"""
-    global derived_vars, no_drv_tm_vars, rigb_vars, flx_vars
+    global derived_vars, no_drv_tm_vars, rigb_vars, flx_vars, columns
     path = 'resources/{}/ds.json'.format(name)
     attr_dict = read_ordered_json(path)
-
     ds.attrs = attr_dict.pop('attributes')
 
     if name == 'scar':

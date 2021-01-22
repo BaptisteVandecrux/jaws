@@ -28,5 +28,5 @@
 	"VW2_max": "wspd_max2",
 	"VW1_stdev": "wspd_stdev1",
 	"VW2_stdev": "wspd_stdev2",
-	"TA5": "ref_temp",
+	"TA5": "ref_temp"
 }

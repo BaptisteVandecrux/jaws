@@ -4,11 +4,11 @@ from datetime import datetime
 import os
 import re
 import sys
-
+ 
 try:
-    from jaws import gcnet2nc, promice2nc, aaws2nc, imau2nc, scar2nc, nsidc2nc, common, analysis
+    from jaws import nead2nc, gcnet2nc, promice2nc, aaws2nc, imau2nc, scar2nc, nsidc2nc, common, analysis
 except ImportError:
-    import gcnet2nc, promice2nc, aaws2nc, imau2nc, scar2nc, nsidc2nc, common, analysis
+    import nead2nc, gcnet2nc, promice2nc, aaws2nc, imau2nc, scar2nc, nsidc2nc, common, analysis
 
 try:
     from jaws.common import jaws_version
@@ -257,7 +257,7 @@ def dispatch_converter(args, input_file, output_file, stations):
     if pol_scar:
         scar2nc.scar2nc(args, input_file, output_file)
     elif NEAD:
-        gcnet2nc.gcnet2nc(args, input_file, output_file, stations)
+        nead2nc.nead2nc(args, input_file, output_file, stations)
     else:
         with open(input_file) as stream:
             char = stream.readline()[0]
