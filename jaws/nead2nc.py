@@ -81,7 +81,6 @@ def get_time_and_sza(args, dataframe, longitude, latitude):
     sza, az = ([0] * num_rows for _ in range(2))
 
     dataframe['dtime'] = pd.to_datetime(dataframe.timestamp.values)
-    dataframe['dtime'] += pd.to_timedelta(dataframe.hour, unit='h')
     # Each timestamp is average of previous and current hour values i.e. value at hour=5 is average of hour=4 and hour=5
     # Our 'time' variable will represent values at half-hour i.e. 4.5 in above case, so subtract 30 minutes from all.
     dataframe['dtime'] -= pd.to_timedelta(common.seconds_in_half_hour, unit='s')
@@ -90,7 +89,6 @@ def get_time_and_sza(args, dataframe, longitude, latitude):
 
     time = (dataframe['dtime'] - dtime_1970) / np.timedelta64(1, 's')  # Seconds since 1970
     time_bounds = [(i-common.seconds_in_half_hour, i+common.seconds_in_half_hour) for i in time]
-
     month = pd.DatetimeIndex(dataframe['dtime']).month.values
     day = pd.DatetimeIndex(dataframe['dtime']).day.values
     minutes = pd.DatetimeIndex(dataframe['dtime']).minute.values
@@ -297,9 +295,6 @@ def nead2nc(args, input_file, output_file, stations):
 
     global columns
     columns = df.columns.values
-    
-    print(columns)
-    print('columns' in globals())
     
     common.load_dataset_attributes('nead', ds, args, rigb_vars=rigb_vars, 
                                    temperature_vars=temperature_vars,

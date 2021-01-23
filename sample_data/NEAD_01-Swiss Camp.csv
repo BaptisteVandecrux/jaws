@@ -6,7 +6,7 @@
 # station_name = GC-NET station Swiss Camp AWS
 # srid = EPSG:4326
 # geometry = POINTZ (-49.3647 69.5556 1138)
-# nodata = 
+# nodata = -999
 # timestamp_meaning = end
 # timezone = 0
 # field_delimiter = ,
