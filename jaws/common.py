@@ -71,7 +71,7 @@ def load_dataframe(name, input_file, header_rows, **kwargs):
         org_columns = read_ordered_json(path)
         for column_name,std_name in org_columns.items():
             if column_name in df.columns.values:
-                df[std_name]=df[column_name]
+                df.rename(columns={column_name: std_name}, errors="raise",inplace=True)
         columns = df.columns
                     
     else:

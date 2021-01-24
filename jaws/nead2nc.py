@@ -30,18 +30,17 @@ def init_dataframe(args, input_file):
     df, columns = common.load_dataframe('nead', input_file, 0)
 
     temperature_vars = [
-        'TA1', 'TA1_max', 'TA1_min',
-       'TA2', 'TA2_max', 'TA2_min',
-       'TA3', 'TA3_max', 'TA3_min',
-       'TA4', 'TA4_max', 'TA4_min',
-       'TA5']
+        'ta_tc1', 'ta_tc2', 'ta_cs1', 'ta_cs2',
+        'tsn1', 'tsn2', 'tsn3','tsn4', 'tsn5',
+        'tsn6', 'tsn7', 'tsn8', 'tsn9', 'tsn10',
+        'ta_max1', 'ta_max2', 'ta_min1','ta_min2', 'ref_temp']
 
     temperature_vars = [e for e in temperature_vars if e in df.columns.values]
                                         
     if not args.celsius:
         df.loc[:, temperature_vars] += common.freezing_point_temp  # Convert units to Kelvin
 
-    pressure_vars = ['P']
+    pressure_vars = ['ps']
     if not args.mb:
         df.loc[:, pressure_vars] *= common.pascal_per_millibar  # Convert units to millibar/hPa
 
