@@ -52,23 +52,28 @@ def init_dataframe(args, input_file):
 def get_station(args, input_file, stations):
     """Get latitude, longitude and name for each station"""
     ds = nead.read(input_file)
-    station_number = ds.attrs['station_id']
 
-    if 1 <= station_number <= 23:
-        station = list(stations.values())[station_number]
-    elif 30 <= station_number <= 32:
-        name = 'gcnet_lar{}'.format(station_number - 29)
-        station = stations[name]
+    if 'station_num' in ds.attrs:
+        station_number = ds.attrs['station_num']
+    
+        if 1 <= station_number <= 23:
+            station = list(stations.values())[station_number]
+        elif 30 <= station_number <= 32:
+            name = 'gcnet_lar{}'.format(station_number - 29)
+            station = stations[name]
+        else:
+            print('KeyError: {}'.format(ds.attrs['station_id']))
+            print('HINT: This KeyError can occur when JAWS is asked to process station that is not in its database. '
+                  'Please inform the JAWS maintainers by opening an issue at https://github.com/jaws/jaws/issues.')
+            sys.exit(1)
+    
+        lat, lon, stn_nm = common.parse_station(args, station)
     else:
-        print('KeyError: {}'.format(ds.attrs['station_id']))
-        print('HINT: This KeyError can occur when JAWS is asked to process station that is not in its database. '
-              'Please inform the JAWS maintainers by opening an issue at https://github.com/jaws/jaws/issues.')
-        sys.exit(1)
-
-    lat, lon, stn_nm = common.parse_station(args, station)
+        coord = [float(f) for f in ds.attrs['geometry'].split('(')[1].split(')')[0].split(' ')]
+        lat = coord[1]
+        lon = coord[0]
+        stn_nm =   ds.attrs['station_name']      
     return lat, lon, stn_nm
-
-
                 
 def get_time_and_sza(args, dataframe, longitude, latitude):
     """Calculate additional time related variables"""

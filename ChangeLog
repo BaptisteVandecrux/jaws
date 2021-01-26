@@ -1,3 +1,7 @@
+2021-01-24  Baptiste Vandecrux  <bav@geus.dk>
+
+    * Added NEAD file reader for new GC-Net file format
+	
 2019-08-13  Ajay Saini  <sainiak@uci.edu>
 
     * git tag -a 1.0 -m 'Whale Shark: Stable, long-term release'; git push --tags

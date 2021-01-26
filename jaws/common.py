@@ -168,7 +168,7 @@ def load_dataset_attributes(name, ds, args, **kwargs):
 
     rigb_vars = []
 
-    if name in ['imau/ant', 'imau/grl', 'gcnet', 'promice']:
+    if name in ['imau/ant', 'imau/grl', 'gcnet', 'promice', 'nead']:
         rigb_vars = kwargs.pop('rigb_vars')
 
     flx_vars = []
